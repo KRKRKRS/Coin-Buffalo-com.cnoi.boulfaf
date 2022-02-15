@@ -5,9 +5,17 @@
       <map>
         <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1535" />
         <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1535" />
+        <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/layout/activity_boulfafmain.xml" value="0.1671195652173913" />
+        <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/layout/activity_card_flip.xml" value="0.1796875" />
         <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/layout/activity_mboulfafenu.xml" value="0.1" />
         <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/layout/activity_menu.xml" value="0.1503623188405797" />
-        <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/layout/activity_mmy_game.xml" value="0.1796875" />
+        <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/layout/activity_mmboulfafy_game.xml" value="0.15211640211640212" />
+        <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/layout/activity_mmy_game.xml" value="0.1" />
+        <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/layout/fragment_card_back.xml" value="0.1796875" />
+        <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/layout/fragment_card_back2.xml" value="0.1796875" />
+        <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/layout/fragment_card_front.xml" value="0.1796875" />
+        <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/layout/fragment_main_layout.xml" value="0.1796875" />
         <entry key="..\:/Programming/Gamblords/CoinBuffalo/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1535" />
       </map>
     </option>

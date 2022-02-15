@@ -1,0 +1,9 @@
+<?xml version ="1.0" encoding ="utf-8"?>
+
+    <objectAnimator
+    xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="sequentially"
+        android:duration="499"
+        android:propertyName="rotationY"
+        android:valueFrom="179"
+        android:valueTo="91" >
+    </objectAnimator>
