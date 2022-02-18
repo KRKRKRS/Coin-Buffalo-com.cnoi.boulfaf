@@ -185,7 +185,7 @@ public class C9B extends AppCompatActivity {
             webVboulfafiew.setVisibility(View.VISIBLE);
             proboulfafgressBar.setVisibility(ProgressBar.INVISIBLE);
 
-            if (url.contains(decoboulfafde("NDA0"))) {
+            if (url.contains(decoboulfafde("Z2FwcHM9NDA0"))) {
                 goboulfafame();
                 finish();
             }
